@@ -45,7 +45,7 @@ function App() {
   // Верификация токена пользователя
   useEffect( () => {
     const userToken = localStorage.getItem('token')
-    if (userToken) { apiAuth.tokenVerification(userToken)
+    if (userToken) { apiAuth.checkToken(userToken)
         .then( (res) => { setEmail(res.data.email); setIsLoggedIn(true); navigate('/', { replace: true }) })
         .catch( (err) => { console.log(`Возникла ошибка верификации токена, ${err}`) })
     }
@@ -53,14 +53,14 @@ function App() {
 
   // Функция регистрации пользователя (при успехе(провале) всплывает popup через Tooltip используя статус)
   function handleRegister (password, email) {
-    apiAuth.userRegistration(password, email)
+    apiAuth.registerUser(password, email)
       .then( () => { setTooltipOpen(true); setStatus(true) })
       .catch( (err) => { console.log(`Возникла ошибка при регистрации пользователя, ${err}`); setTooltipOpen(true); setStatus(false) })
   }
 
   // Функция авторизации пользователя (при неудаче всплывает popup через Tooltip используя статус)
   function handleLogin (password, email) {
-    apiAuth.userAuthorization(password, email)
+    apiAuth.authorizeUser(password, email)
       .then( (res) => {
         // Если токен валиден, авторизовываем и перебрасывам на главную
         if (res.token) {

@@ -11,7 +11,7 @@ class AuthApi {
     }
   }
   // Метод верификации токена
-  tokenVerification (token) {
+  checkToken (token) {
     return fetch(`${this._authUrl}users/me`, {
       // По умолчанию fetch — это GET, можно не указывать
       headers: {
@@ -22,7 +22,7 @@ class AuthApi {
       .then(this._processingServerResponse)
   }
   // Метод авторизации пользователя
-  userAuthorization (password, email) {
+  authorizeUser (password, email) {
     return fetch(`${this._authUrl}signin`, {
       method: 'POST',
       headers: {
@@ -33,7 +33,7 @@ class AuthApi {
       .then(this._processingServerResponse)
   }
   // Метод регистрации пользователя
-  userRegistration (password, email) {
+  registerUser (password, email) {
     return fetch(`${this._authUrl}signup`, {
       method: 'POST',
       headers: {
